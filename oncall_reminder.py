@@ -47,6 +47,7 @@ def discord(path, body):
 def main():
     with urllib.request.urlopen(os.environ["CALENDAR_ICS_URL"]) as r:
         dates = oncall_dates(r.read(), dt.date.today(), os.environ["EVENT_PREFIX"])
+    print(f"{dt.datetime.now():%Y-%m-%d %H:%M} reminders: {[str(d) for d in dates]}", flush=True)
     if not dates:
         return
     channel = discord("/users/@me/channels", {"recipient_id": os.environ["DISCORD_USER_ID"]})
